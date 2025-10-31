@@ -1,0 +1,15 @@
+nav {
+  background-color: var(--p-gray-200) !important;
+  border-bottom: 1px solid var(--p-gray-300) !important;
+  z-index: 10;
+}
+
+main {
+  margin-top: 69px;
+  padding: 0;
+  display: flex;
+}
+
+section {
+  max-width: 1024px;
+}

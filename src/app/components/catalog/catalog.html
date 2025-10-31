@@ -1,0 +1,10 @@
+<div class="w-full h-full">
+  <div class="flex justify-content-between align-items-center">
+
+  </div>
+  <div>
+    @for (movie of movies(); track movie.id) {
+      <app-movie-card [movie]="movie" />
+    }
+  </div>
+</div>

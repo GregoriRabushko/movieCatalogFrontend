@@ -1,0 +1,17 @@
+<nav class="fixed p-1 top-0 left-0 right-0 flex justify-content-center">
+  <div
+    class="flex justify-content-between w-full align-items-center"
+    style="max-width: 1024px"
+  >
+    <h3>Каталог фильмов</h3>
+    <div class="flex align-items-center gap-1">
+      <input pInputText placeholder="Поиск фильмов...">
+      <p-button [label]="'ок'" [size]="'small'" />
+    </div>
+  </div>
+</nav>
+<main class="flex w-full justify-content-center">
+  <section class="w-full flex align-items-center justify-content-center">
+    <router-outlet />
+  </section>
+</main>
