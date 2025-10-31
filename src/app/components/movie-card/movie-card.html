@@ -1,3 +1,64 @@
-<p-card>
-  <img [src]="movie().imageID" width="200" height="auto" alt="kkf">
-</p-card>
+<div
+  class="cursor-pointer"
+  [pTooltip]="movieInfo"
+  [tooltipPosition]="'bottom'"
+  [tooltipStyleClass]="'movie-card-tooltip'"
+>
+  <div class="flex align-items-center justify-content-center">
+    <img
+      [src]="movie().imageID"
+      style="max-width: 200px; max-height: 300px"
+    />
+  </div>
+  <div class="flex flex-column align-items-center">
+    <h4 class="flex-grow-1 text-center m-1 p-0">{{ movie().name }}</h4>
+    <p class="text-center m-0 p-0">{{ movie().year }}</p>
+  </div>
+</div>
+
+<ng-template #movieInfo>
+  <div class="flex gap-4">
+    <div
+      class="flex align-items-center justify-content-center"
+      [pTooltip]="movieInfo"
+      [tooltipPosition]="'bottom'"
+    >
+      <img
+        [src]="movie().imageID"
+        style="max-width: 200px; max-height: 300px"
+      />
+    </div>
+    <div class="details flex flex-column">
+      <div class="details-info">
+        <div class="flex gap-2">
+          <span class="font-bold">Год выпуска: </span>
+          <span>{{ movie().year }}</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="font-bold">Страна: </span>
+<!--          <span>{{ movie().country }}</span>-->
+          <span>неизвестно</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="font-bold">Жанр: </span>
+          <span>{{ movie().genre }}</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="font-bold">Продолжительность: </span>
+<!--          <span>{{ movie().duration }}</span>-->
+          <span>1 ч 57 мин</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="font-bold">Качество: </span>
+<!--          <span>{{ movie().quality }}</span>-->
+          <span>BDRip 1080</span>
+        </div>
+        <div class="flex gap-2">
+          <span class="font-bold">Название: </span>
+          <span>{{ movie().name }}</span>
+        </div>
+      </div>
+      <p class="details-description">{{ movie().description }}</p>
+    </div>
+  </div>
+</ng-template>

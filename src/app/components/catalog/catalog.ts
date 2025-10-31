@@ -3,12 +3,14 @@ import { MovieCard } from '../movie-card/movie-card';
 import { Movie } from '../../services/movie';
 import {MovieBase} from '../../interfaces/movie';
 import {InputText} from 'primeng/inputtext';
+import {Paginator, PaginatorState} from 'primeng/paginator';
 
 @Component({
   selector: 'app-catalog',
   imports: [
     MovieCard,
-    InputText
+    InputText,
+    Paginator
   ],
   templateUrl: './catalog.html',
   styleUrl: './catalog.css',
@@ -22,4 +24,7 @@ export class Catalog implements OnInit {
     this.movies.set(this.movieService.getMovies());
   }
 
+  onPageChange(event: PaginatorState) {
+
+  }
 }

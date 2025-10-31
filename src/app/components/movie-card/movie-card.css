@@ -1,0 +1,5 @@
+.details-description {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+}

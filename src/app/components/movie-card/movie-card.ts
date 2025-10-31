@@ -1,11 +1,13 @@
 import {Component, input, OnInit} from '@angular/core';
 import { Card } from 'primeng/card';
 import {MovieBase} from '../../interfaces/movie';
+import {Tooltip} from 'primeng/tooltip';
 
 @Component({
   selector: 'app-movie-card',
   imports: [
-    Card
+    Card,
+    Tooltip
   ],
   templateUrl: './movie-card.html',
   styleUrl: './movie-card.css',

@@ -5,3 +5,9 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.movie-card-tooltip {
+  --p-tooltip-background: var(--p-surface-300) !important;
+  --p-tooltip-color: black !important;
+  max-width: unset !important;
+}

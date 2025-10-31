@@ -3,6 +3,7 @@ export interface MovieDTO {
   description: string | null;
   imageID: string | null;
   movieID: string;
+  country: string | null;
   year: number | null;
   quality: string | null;
   rating: number | null;
@@ -14,4 +15,7 @@ export interface MovieDTO {
 
 export interface MovieBase extends MovieDTO {
   id: string;
+  countAll: number;
+  countWatched: number;
+  duration: string;
 }
