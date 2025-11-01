@@ -7,8 +7,12 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./components/catalog/catalog').then(m => m.Catalog)
-      }
-    ]
+        loadComponent: () => import('./components/catalog/catalog').then(m => m.Catalog),
+      },
+      {
+        path: 'viewing-movie/:id',
+        loadComponent: () => import('./components/viewing-movie/viewing-movie').then(m => m.ViewingMovie),
+      },
+    ],
   }
 ];
