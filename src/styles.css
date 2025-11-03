@@ -1,6 +1,10 @@
 @import 'primeflex/primeflex.css';
 @import "primeicons/primeicons.css";
 
+:root {
+ --width-root-container-content: 1024px
+}
+
 body {
   margin: 0;
   padding: 0;

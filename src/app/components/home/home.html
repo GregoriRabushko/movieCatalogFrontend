@@ -1,17 +1,42 @@
 <nav class="fixed p-1 top-0 left-0 right-0 flex justify-content-center">
-  <div
-    class="flex justify-content-between w-full align-items-center"
-    style="max-width: 1024px"
-  >
-    <h3>Каталог фильмов</h3>
+  <div class="header-container">
+    <h3 class="cursor-pointer" (click)="goHome()">Каталог фильмов</h3>
     <div class="flex align-items-center gap-1">
       <input pInputText [style]="{ height: '30px' }" placeholder="Поиск фильмов...">
       <p-button [label]="'ок'" [size]="'small'" />
     </div>
   </div>
 </nav>
-<main class="flex w-full justify-content-center">
-  <section class="w-full flex align-items-center justify-content-center">
-    <router-outlet />
-  </section>
+<main>
+  <div class="container-content">
+    <div class="container-recommendations">
+      <div class="flex">
+        <div class="container-recommendations-title">
+          <h2 class="m-0">Рекомендуемое</h2>
+        </div>
+      </div>
+      @if (isLoading()) {
+        <p-progress-spinner
+          ariaLabel="loading"
+          class="flex justify-content-center align-items-center w-full h-screen"
+        />
+      } @else {
+        <div class="container-recommendations-content">
+          @for (rec of recommendations(); track rec.id) {
+            <img
+              class="cursor-pointer"
+              routerLink="/viewing-movie/{{ rec.id }}"
+              [src]="rec.imageURL" [alt]="rec.name"
+              style="max-width: 200px; max-height: 300px"
+              [pTooltip]="`${rec.name} (${rec.year})`"
+              [tooltipPosition]="'bottom'"
+            >
+          }
+        </div>
+      }
+    </div>
+    <section class="w-full">
+      <router-outlet />
+    </section>
+  </div>
 </main>

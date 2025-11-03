@@ -1,14 +1,14 @@
 export interface MovieDTO {
   name: string;
   description: string | null;
-  imageID: string | null;
-  movieID: string;
+  imageURL: string | null;
+  movieURL: string;
   country: string | null;
   year: number | null;
   quality: string | null;
   rating: number | null;
   genre: string;
-  actors: string | null;
+  actorsIDs: string[];
   createdAt: string;
   updatedAt: string | null;
 }
