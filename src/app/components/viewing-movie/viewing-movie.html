@@ -33,14 +33,12 @@
                 <span>{{ movieData()!.genre }}</span>
               </div>
               <div class="flex gap-2">
-                <!--                <span class="font-bold">Продолжительность: </span>-->
+                <span class="font-bold">Продолжительность: </span>
                 <span>{{ movieData()?.duration ? movieData()!.duration : 'неизвестно' }}</span>
-                <span>1 ч 57 мин</span>
               </div>
               <div class="flex gap-2">
-                <!--                <span class="font-bold">Качество: </span>-->
+                <span class="font-bold">Качество: </span>
                 <span>{{ movieData()?.quality ? movieData()!.quality : 'неизвестно' }}</span>
-                <span>BDRip 1080</span>
               </div>
             </div>
             <p>{{ movieData()!.description }}</p>
