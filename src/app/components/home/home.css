@@ -40,14 +40,18 @@ main {
 }
 
 .container-recommendations-content {
-  display: flex;
   padding: 1rem;
-  gap: 20px;
-  overflow-x: auto;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   background-color: var(--p-surface-300);
+}
+
+.recommendation-cards {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 1rem;
 }
 
 section {

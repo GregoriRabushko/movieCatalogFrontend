@@ -22,16 +22,18 @@
         />
       } @else {
         <div class="container-recommendations-content">
-          @for (rec of recommendations(); track rec.id) {
-            <img
-              class="cursor-pointer"
-              routerLink="/viewing-movie/{{ rec.id }}"
-              [src]="rec.imageURL" [alt]="rec.name"
-              style="max-width: 200px; max-height: 300px"
-              [pTooltip]="`${rec.name} (${rec.year})`"
-              [tooltipPosition]="'bottom'"
-            >
-          }
+          <div class="recommendation-cards">
+            @for (rec of recommendations(); track rec.id) {
+              <img
+                class="cursor-pointer"
+                routerLink="/viewing-movie/{{ rec.id }}"
+                [src]="rec.imageURL" [alt]="rec.name"
+                style="max-width: 200px; max-height: 300px"
+                [pTooltip]="`${rec.name} (${rec.year})`"
+                [tooltipPosition]="'bottom'"
+              >
+            }
+          </div>
         </div>
       }
     </div>
