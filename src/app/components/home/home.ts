@@ -3,10 +3,11 @@ import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {InputText} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
 import {MovieBase} from '../../interfaces/movie';
-import {take} from 'rxjs';
+import {catchError, EMPTY, take} from 'rxjs';
 import {Movie} from '../../services/movie';
 import {Tooltip} from 'primeng/tooltip';
 import {ProgressSpinner} from 'primeng/progressspinner';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,7 @@ export class Home implements OnInit {
   recommendations = signal<MovieBase[]>([]);
   private readonly router = inject(Router);
   private readonly movieService = inject(Movie);
+  private readonly messageService = inject(MessageService);
 
   ngOnInit() {
     this.getRecommendations();
@@ -36,10 +38,20 @@ export class Home implements OnInit {
     this.isLoading.set(true);
     this.movieService
       .getRecommendations()
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        catchError(err => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Нет подключения к интернету или проблемы с сервером',
+          });
+          return EMPTY;
+        }),
+      )
       .subscribe(res => {
-        if (res) {
-          this.recommendations.set(res);
+        if (res.ok && res.body?.data) {
+          this.recommendations.set(res.body!.data!);
         }
         this.isLoading.set(false);
       })

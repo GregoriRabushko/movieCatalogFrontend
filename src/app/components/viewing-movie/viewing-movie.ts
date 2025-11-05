@@ -1,7 +1,7 @@
 import {Component, DestroyRef, effect, inject, OnInit, signal} from '@angular/core';
 import {Button} from 'primeng/button';
 import {Movie} from '../../services/movie';
-import {take} from 'rxjs';
+import {EMPTY, mergeMap, take} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MovieBase} from '../../interfaces/movie';
@@ -16,37 +16,37 @@ import {ProgressSpinner} from 'primeng/progressspinner';
   templateUrl: './viewing-movie.html',
   styleUrl: './viewing-movie.css',
 })
-export class ViewingMovie implements OnInit {
+export class ViewingMovie {
   isLoading = signal<boolean>(false);
-  movieId = signal<string | null>(null);
   movieData = signal<MovieBase | null>(null);
-  private readonly movieService = inject(Movie);
-  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly movieService = inject(Movie);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   constructor() {
-    this.activatedRoute.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(params => {
-      this.movieId.set(params['id']);
-    });
-    // effect(() => {
-    //   if (this.movieId()) {
-    //     this.ngOnInit();
-    //   }
-    // });
-  }
-
-  ngOnInit() {
     this.isLoading.set(true);
-    this.movieService
-    .getMovieData(this.movieId()!)
-      .pipe(take(1))
+    this.activatedRoute.params
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        mergeMap(params => {
+          let id = params['id'];
+          if (id) {
+            return this.getMovieData(id);
+          }
+          return EMPTY;
+        })
+      )
       .subscribe(res => {
-        if (res) {
-          this.movieData.set(res);
+        if (res.ok && res.body?.data) {
+          this.movieData.set(res.body!.data);
         }
         this.isLoading.set(false);
       });
+  }
+
+  private getMovieData(id: string) {
+    return this.movieService.getMovieData(id).pipe(take(1));
   }
 
   goBack() {

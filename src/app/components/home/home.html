@@ -3,7 +3,7 @@
     <h3 class="cursor-pointer" (click)="goHome()">Каталог фильмов</h3>
     <div class="flex align-items-center gap-1">
       <input pInputText [style]="{ height: '30px' }" placeholder="Поиск фильмов...">
-      <p-button [label]="'ок'" [size]="'small'" />
+      <p-button [label]="'ок'" [size]="'small'"/>
     </div>
   </div>
 </nav>
@@ -15,13 +15,13 @@
           <h2 class="m-0">Рекомендуемое</h2>
         </div>
       </div>
-      @if (isLoading()) {
-        <p-progress-spinner
-          ariaLabel="loading"
-          class="flex justify-content-center align-items-center w-full h-screen"
-        />
-      } @else {
-        <div class="container-recommendations-content">
+      <div class="container-recommendations-content">
+        @if (isLoading()) {
+          <p-progress-spinner
+            ariaLabel="loading"
+            class="flex justify-content-center align-items-center w-full"
+          />
+        } @else {
           <div class="recommendation-cards">
             @for (rec of recommendations(); track rec.id) {
               <img
@@ -34,11 +34,11 @@
               >
             }
           </div>
-        </div>
-      }
+        }
+      </div>
     </div>
     <section class="w-full">
-      <router-outlet />
+      <router-outlet/>
     </section>
   </div>
 </main>

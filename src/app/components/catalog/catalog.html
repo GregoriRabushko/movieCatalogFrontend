@@ -1,16 +1,23 @@
-<div class="flex flex-column">
-  <div class="movie-container">
-    @for (movie of movies(); track movie.id) {
-      <app-movie-card [movie]="movie"/>
-    }
+@if (isLoading()) {
+  <p-progress-spinner
+    ariaLabel="loading"
+    class="flex justify-content-center align-items-center w-full"
+  />
+} @else {
+  <div class="flex flex-column">
+    <div class="movie-container">
+      @for (movie of movies(); track movie.id) {
+        <app-movie-card [movie]="movie"/>
+      }
+    </div>
+    <p-paginator
+      [style]="{ backgroundColor: 'var(--p-surface-300)' }"
+      (onPageChange)="onPageChange($event)"
+      [first]="0"
+      [rows]="movies().length"
+      [showCurrentPageReport]="true"
+      [currentPageReportTemplate]="'Отображается от {first} до {last} из {totalRecords} элементов'"
+      [totalRecords]="movies()[0].countAll"
+      [rowsPerPageOptions]="[5, 10, 20, 30]"/>
   </div>
-  <p-paginator
-    [style]="{ backgroundColor: 'var(--p-surface-300)' }"
-    (onPageChange)="onPageChange($event)"
-    [first]="0"
-    [rows]="movies().length"
-    [showCurrentPageReport]="true"
-    [currentPageReportTemplate]="'Отображается от {first} до {last} из {totalRecords} элементов'"
-    [totalRecords]="movies()[0].countAll"
-    [rowsPerPageOptions]="[5, 10, 20, 30]"/>
-</div>
+}
