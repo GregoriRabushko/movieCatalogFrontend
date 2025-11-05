@@ -11,7 +11,7 @@ import {ApiResponse} from '../interfaces/api';
   providedIn: 'root',
 })
 export class Movie extends Base {
-  endpoint = 'movies';
+  endpoint = '/movies';
   actors = signal<Actor[]>([]);
   // movies = signal<MovieBase[]>([]);
   // recommendations = signal<MovieBase[]>([]);
