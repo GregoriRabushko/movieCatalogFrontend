@@ -31,7 +31,7 @@ export class Catalog implements OnInit {
   private getMovies() {
     this.isLoading.set(true);
     this.movieService
-      .getMoviesByPagination()
+      .getMoviesByPagination(20, 20)
       .pipe(
         take(1),
         catchError(err => {

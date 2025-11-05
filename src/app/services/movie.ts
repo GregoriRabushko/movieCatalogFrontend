@@ -1,5 +1,4 @@
 import {Injectable, signal} from '@angular/core';
-import {actorsDb, db} from '../../assets/db/db';
 import {MovieBase} from '../interfaces/movie';
 import {Observable, of, take} from 'rxjs';
 import {Actor} from '../interfaces/actor';

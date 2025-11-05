@@ -8,14 +8,12 @@ export interface MovieDTO {
   quality: string | null;
   rating: number | null;
   genre: string;
-  actorsIDs: string[];
   createdAt: string;
-  updatedAt: string | null;
 }
 
 export interface MovieBase extends MovieDTO {
   id: string;
   countAll: number;
-  countWatched: number;
+  countWatched: number | null;
   duration: string;
 }

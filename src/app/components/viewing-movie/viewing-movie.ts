@@ -40,6 +40,7 @@ export class ViewingMovie {
       .subscribe(res => {
         if (res.ok && res.body?.data) {
           this.movieData.set(res.body!.data);
+          console.log(this.movieData())
         }
         this.isLoading.set(false);
       });

@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {ApiResponse, HttpReturningResponse} from '../interfaces/api';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,11 @@ export abstract class Base {
     httpOptions: HttpReturningResponse<OutputApi> = {observe: 'response'},
   ): Observable<HttpResponse<ApiResponse<OutputApi>>> {
     return this.#http
-      .get<ApiResponse<OutputApi>>(this.createUrl(url), httpOptions);
+      .get<ApiResponse<OutputApi>>(this.createUrl(url), httpOptions)
+      .pipe(map(res => {
+        console.log(res)
+        return res;
+      }));
   }
 
   private createUrl(url: string = ''): string {
