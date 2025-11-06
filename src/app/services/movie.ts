@@ -11,22 +11,6 @@ import {ApiResponse} from '../interfaces/api';
 })
 export class Movie extends Base {
   endpoint = '/movies';
-  actors = signal<Actor[]>([]);
-  // movies = signal<MovieBase[]>([]);
-  // recommendations = signal<MovieBase[]>([]);
-  //
-  // retrieveMovies(limit?: number, offset?: number) {
-  //   this.getMoviesByPagination(limit, offset)
-  //     .pipe(take(1))
-  //     .subscribe(res => {
-  //       if (res.ok && res.body?.data) {
-  //         this.movies.update(m => {
-  //           m = [...m, ...res.body!.data!];
-  //           return m;
-  //         })
-  //       }
-  //     });
-  // }
 
   getRecommendations() {
     return this.get<MovieBase[]>('/recommendations');
@@ -34,12 +18,6 @@ export class Movie extends Base {
 
   getMovieData(id: string) {
     return this.get<MovieBase>(`/${id}`);
-  }
-
-  getActorData(actorID: string) {
-    //TODO
-    const result = this.actors().find(actor => actor.id === actorID);
-    return of(result ? result : null);
   }
 
   getMoviesByPagination(
@@ -56,5 +34,9 @@ export class Movie extends Base {
       return this.get<MovieBase[]>('?limit=' + limit + '&offset=' + offset);
     }
     return this.get<MovieBase[]>();
+  }
+
+  searchMovies(name: string) {
+    return this.get<MovieBase[]>(`/search?searchValue=${name}`);
   }
 }

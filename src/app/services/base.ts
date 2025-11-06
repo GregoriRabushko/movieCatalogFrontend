@@ -19,7 +19,6 @@ export abstract class Base {
     return this.#http
       .get<ApiResponse<OutputApi>>(this.createUrl(url), httpOptions)
       .pipe(map(res => {
-        console.log(res)
         return res;
       }));
   }

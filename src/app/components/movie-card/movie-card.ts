@@ -2,11 +2,13 @@ import {Component, inject, input, OnInit} from '@angular/core';
 import {MovieBase} from '../../interfaces/movie';
 import {Tooltip} from 'primeng/tooltip';
 import {Router} from '@angular/router';
+import {Loader} from '../../directives/loader';
 
 @Component({
   selector: 'app-movie-card',
   imports: [
-    Tooltip
+    Tooltip,
+    Loader
   ],
   templateUrl: './movie-card.html',
   styleUrl: './movie-card.css',

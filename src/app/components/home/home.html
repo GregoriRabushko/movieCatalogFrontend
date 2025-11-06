@@ -1,10 +1,20 @@
 <nav class="fixed p-1 top-0 left-0 right-0 flex justify-content-center">
   <div class="header-container">
     <h3 class="cursor-pointer" (click)="goHome()">Каталог фильмов</h3>
-    <div class="flex align-items-center gap-1">
-      <input pInputText [style]="{ height: '30px' }" placeholder="Поиск фильмов...">
-      <p-button [label]="'ок'" [size]="'small'"/>
-    </div>
+    <form [formGroup]="myForm" class="flex align-items-center gap-1">
+      <p-auto-complete
+        [inputStyle]="{ height: '30px' }"
+        [suggestions]="searchResult()"
+        [optionLabel]="'name'"
+        [showClear]="true"
+        [showEmptyMessage]="true"
+        [emptyMessage]="'Поиск не дал результатов'"
+        formControlName="search"
+        placeholder="Поиск фильмов..."
+      >
+
+      </p-auto-complete>
+    </form>
   </div>
 </nav>
 <main>
@@ -25,9 +35,11 @@
           <div class="recommendation-cards">
             @for (rec of recommendations(); track rec.id) {
               <img
+                appLoader
+                [mediaSource]="rec.imageURL"
+                [alt]="rec.name"
                 class="cursor-pointer"
                 routerLink="/viewing-movie/{{ rec.id }}"
-                [src]="rec.imageURL" [alt]="rec.name"
                 style="max-width: 200px; max-height: 300px"
                 [pTooltip]="`${rec.name} (${rec.year})`"
                 [tooltipPosition]="'bottom'"

@@ -6,12 +6,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MovieBase} from '../../interfaces/movie';
 import {ProgressSpinner} from 'primeng/progressspinner';
+import {Loader} from '../../directives/loader';
 
 @Component({
   selector: 'app-viewing-movie',
   imports: [
     Button,
-    ProgressSpinner
+    ProgressSpinner,
+    Loader
   ],
   templateUrl: './viewing-movie.html',
   styleUrl: './viewing-movie.css',
@@ -40,7 +42,6 @@ export class ViewingMovie {
       .subscribe(res => {
         if (res.ok && res.body?.data) {
           this.movieData.set(res.body!.data);
-          console.log(this.movieData())
         }
         this.isLoading.set(false);
       });

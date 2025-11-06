@@ -1,17 +1,20 @@
 import { Routes } from '@angular/router';
+import {Home} from './components/home/home';
+import {Catalog} from './components/catalog/catalog';
+import {ViewingMovie} from './components/viewing-movie/viewing-movie';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./components/home/home').then(m => m.Home),
+    component: Home,
     children: [
       {
         path: '',
-        loadComponent: () => import('./components/catalog/catalog').then(m => m.Catalog),
+        component: Catalog,
       },
       {
         path: 'viewing-movie/:id',
-        loadComponent: () => import('./components/viewing-movie/viewing-movie').then(m => m.ViewingMovie),
+        component: ViewingMovie,
       },
     ],
   }

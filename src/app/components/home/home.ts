@@ -1,37 +1,68 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import {InputText} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
 import {MovieBase} from '../../interfaces/movie';
-import {catchError, EMPTY, take} from 'rxjs';
+import {catchError, debounce, EMPTY, interval, take} from 'rxjs';
 import {Movie} from '../../services/movie';
 import {Tooltip} from 'primeng/tooltip';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {MessageService} from 'primeng/api';
+import {Loader} from '../../directives/loader';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {AutoComplete, AutoCompleteCompleteEvent, AutoCompleteLazyLoadEvent} from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-home',
   imports: [
     RouterOutlet,
-    InputText,
     Button,
     RouterLink,
     Tooltip,
-    ProgressSpinner
+    ProgressSpinner,
+    Loader,
+    ReactiveFormsModule,
+    AutoComplete
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
   standalone: true,
 })
 export class Home implements OnInit {
+  searchResult = signal<MovieBase[]>([]);
   isLoading = signal<boolean>(false);
   recommendations = signal<MovieBase[]>([]);
+  myForm = new FormGroup({
+    search: new FormControl(''),
+  });
   private readonly router = inject(Router);
   private readonly movieService = inject(Movie);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly messageService = inject(MessageService);
 
   ngOnInit() {
     this.getRecommendations();
+    this.changeSearch();
+  }
+
+  private changeSearch() {
+    this.myForm.valueChanges
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        debounce(() => interval(1000)),
+        )
+      .subscribe(value => {
+        if (value.search && value.search.length >= 3) {
+          this.movieService.searchMovies(value.search)
+            .pipe(take(1))
+            .subscribe(res => {
+              if (res.ok && res.body?.data) {
+                this.searchResult.set(res.body!.data!);
+                console.log(this.searchResult())
+              }
+            })
+        }
+    });
   }
 
   private getRecommendations() {

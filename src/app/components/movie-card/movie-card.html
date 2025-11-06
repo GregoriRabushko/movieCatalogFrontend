@@ -7,7 +7,9 @@
 >
   <div class="flex align-items-center justify-content-center">
     <img
-      [src]="movie().imageURL"
+      appLoader
+      [mediaSource]="movie().imageURL"
+      skeletonSize="200px"
       style="max-width: 200px; max-height: 300px"
     />
   </div>
@@ -25,7 +27,8 @@
       [tooltipPosition]="'bottom'"
     >
       <img
-        [src]="movie().imageURL"
+        appLoader
+        [mediaSource]="movie()!.imageURL"
         style="max-width: 200px; max-height: 300px"
       />
     </div>
