@@ -3,16 +3,28 @@
     <h3 class="cursor-pointer" (click)="goHome()">Каталог фильмов</h3>
     <form [formGroup]="myForm" class="flex align-items-center gap-1">
       <p-auto-complete
+        #autoComplete
         [inputStyle]="{ height: '30px' }"
         [suggestions]="searchResult()"
         [optionLabel]="'name'"
         [showClear]="true"
+        (onSelect)="navigateToViewingMovie($event)"
         [showEmptyMessage]="true"
         [emptyMessage]="'Поиск не дал результатов'"
         formControlName="search"
         placeholder="Поиск фильмов..."
       >
-
+        <ng-template #item let-item >
+          <div class="flex align-items-center">
+            <img
+              appLoader
+              [mediaSource]="item.imageURL"
+              [alt]="item.name"
+              style="max-width: 20px; max-height: 30px"
+            />
+            <span class="ml-2">{{ item.name }}</span>
+          </div>
+        </ng-template>
       </p-auto-complete>
     </form>
   </div>

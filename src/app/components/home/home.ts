@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {Component, DestroyRef, ElementRef, inject, OnInit, signal, viewChild} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {Button} from 'primeng/button';
 import {MovieBase} from '../../interfaces/movie';
@@ -10,7 +10,12 @@ import {MessageService} from 'primeng/api';
 import {Loader} from '../../directives/loader';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {AutoComplete, AutoCompleteCompleteEvent, AutoCompleteLazyLoadEvent} from 'primeng/autocomplete';
+import {
+  AutoComplete,
+  AutoCompleteCompleteEvent,
+  AutoCompleteLazyLoadEvent,
+  AutoCompleteSelectEvent
+} from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-home',
@@ -50,7 +55,15 @@ export class Home implements OnInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         debounce(() => interval(1000)),
-        )
+        catchError(() => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Нет подключения к интернету или проблемы с сервером',
+          });
+          return EMPTY;
+        }),
+      )
       .subscribe(value => {
         if (value.search && value.search.length >= 3) {
           this.movieService.searchMovies(value.search)
@@ -58,11 +71,10 @@ export class Home implements OnInit {
             .subscribe(res => {
               if (res.ok && res.body?.data) {
                 this.searchResult.set(res.body!.data!);
-                console.log(this.searchResult())
               }
             })
         }
-    });
+      });
   }
 
   private getRecommendations() {
@@ -71,7 +83,7 @@ export class Home implements OnInit {
       .getRecommendations()
       .pipe(
         take(1),
-        catchError(err => {
+        catchError(() => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
@@ -91,5 +103,13 @@ export class Home implements OnInit {
 
   goHome() {
     this.router.navigate(['/']);
+  }
+
+  navigateToViewingMovie(event: AutoCompleteSelectEvent) {
+    this.searchResult.set([]);
+    this.myForm.patchValue({
+      search: '',
+    });
+    this.router.navigate([`viewing-movie/${event.value.id}`]);
   }
 }
