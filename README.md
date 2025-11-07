@@ -11,7 +11,8 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
+## You should also run the server part
+Which is located at the link: `https://github.com/GregoriRabushko/MovieCatalogBE`
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
