@@ -1,7 +1,6 @@
-import {Injectable, signal} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {MovieBase} from '../interfaces/movie';
-import {Observable, of, take} from 'rxjs';
-import {Actor} from '../interfaces/actor';
+import {Observable} from 'rxjs';
 import {Base} from './base';
 import {HttpResponse} from '@angular/common/http';
 import {ApiResponse} from '../interfaces/api';
@@ -11,14 +10,6 @@ import {ApiResponse} from '../interfaces/api';
 })
 export class Movie extends Base {
   endpoint = '/movies';
-
-  getRecommendations() {
-    return this.get<MovieBase[]>('/recommendations');
-  }
-
-  getMovieData(id: string) {
-    return this.get<MovieBase>(`/${id}`);
-  }
 
   getMoviesByPagination(
     limit?: number,
@@ -36,7 +27,15 @@ export class Movie extends Base {
     return this.get<MovieBase[]>();
   }
 
-  searchMovies(name: string) {
+  getRecommendations(): Observable<HttpResponse<ApiResponse<MovieBase[]>>> {
+    return this.get<MovieBase[]>('/recommendations');
+  }
+
+  getMovieData(id: string): Observable<HttpResponse<ApiResponse<MovieBase>>> {
+    return this.get<MovieBase>(`/${id}`);
+  }
+
+  searchMovies(name: string): Observable<HttpResponse<ApiResponse<MovieBase[]>>> {
     return this.get<MovieBase[]>(`/search?searchValue=${name}`);
   }
 }

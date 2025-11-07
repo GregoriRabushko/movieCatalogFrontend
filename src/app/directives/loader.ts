@@ -17,8 +17,8 @@ import {Skeleton} from 'primeng/skeleton';
   selector: '[appLoader]'
 })
 export class Loader implements AfterViewInit, OnDestroy {
-  mediaSource = input<string | null>();
   skeletonSize = input('50px');
+  mediaSource = input<string | null>();
   private blobUrl!: string;
   private isDefaultImgUsed: boolean = false;
   private readonly http = inject(HttpClient);

@@ -1,19 +1,19 @@
+import {Country, Genre, Quality} from '../const/api';
+
 export interface MovieDTO {
   name: string;
   description: string | null;
   imageURL: string | null;
   movieURL: string;
-  country: string | null;
+  country: Country | null;
   year: number | null;
-  quality: string | null;
+  quality: Quality | null;
   rating: number | null;
-  genre: string;
-  createdAt: string;
+  genre: Genre | null;
 }
 
 export interface MovieBase extends MovieDTO {
   id: string;
   countAll: number;
-  countWatched: number | null;
   duration: string;
 }

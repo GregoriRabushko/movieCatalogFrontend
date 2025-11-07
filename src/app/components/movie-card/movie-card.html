@@ -8,14 +8,14 @@
   <div class="flex align-items-center justify-content-center">
     <img
       appLoader
-      [mediaSource]="movie().imageURL"
+      [mediaSource]="movieData().imageURL"
       skeletonSize="200px"
       style="max-width: 200px; max-height: 300px"
     />
   </div>
   <div class="flex flex-column align-items-center">
-    <h4 class="flex-grow-1 text-center m-1 p-0">{{ movie().name }}</h4>
-    <p class="text-center m-0 p-0">{{ movie().year }}</p>
+    <h4 class="flex-grow-1 text-center m-1 p-0">{{ movieData().name }}</h4>
+    <p class="text-center m-0 p-0">{{ movieData().year }}</p>
   </div>
 </div>
 
@@ -28,7 +28,7 @@
     >
       <img
         appLoader
-        [mediaSource]="movie()!.imageURL"
+        [mediaSource]="movieData()!.imageURL"
         style="max-width: 200px; max-height: 300px"
       />
     </div>
@@ -36,33 +36,30 @@
       <div class="details-info">
         <div class="flex gap-2">
           <span class="font-bold">Год выпуска: </span>
-          <span>{{ movie().year }}</span>
+          <span>{{ movieData().year }}</span>
         </div>
         <div class="flex gap-2">
           <span class="font-bold">Страна: </span>
-<!--          <span>{{ movie().country }}</span>-->
-          <span>неизвестно</span>
+          <span>{{ movieData().country | country }}</span>
         </div>
         <div class="flex gap-2">
           <span class="font-bold">Жанр: </span>
-          <span>{{ movie().genre }}</span>
+          <span>{{ movieData().genre | genre }}</span>
         </div>
         <div class="flex gap-2">
           <span class="font-bold">Продолжительность: </span>
-<!--          <span>{{ movie().duration }}</span>-->
-          <span>1 ч 57 мин</span>
+          <span>{{ movieData().duration | duration }}</span>
         </div>
         <div class="flex gap-2">
           <span class="font-bold">Качество: </span>
-<!--          <span>{{ movie().quality }}</span>-->
-          <span>BDRip 1080</span>
+          <span>{{ movieData().quality }}</span>
         </div>
         <div class="flex gap-2">
           <span class="font-bold">Название: </span>
-          <span>{{ movie().name }}</span>
+          <span>{{ movieData().name }}</span>
         </div>
       </div>
-      <p class="details-description">{{ movie().description }}</p>
+      <p class="details-description">{{ movieData().description }}</p>
     </div>
   </div>
 </ng-template>

@@ -23,8 +23,8 @@ export class Catalog implements OnInit {
   rows = signal<number>(20);
   first = signal<number>(0);
   movies = signal<MovieBase[]>([]);
-  isLoading = signal<boolean>(false);
   totalRecords = signal<number>(0);
+  isLoading = signal<boolean>(false);
   private readonly movieService = inject(Movie);
   private readonly messageService = inject(MessageService);
 

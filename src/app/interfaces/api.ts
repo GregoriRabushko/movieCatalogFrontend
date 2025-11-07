@@ -1,4 +1,4 @@
-import { HttpContext, HttpHeaders, HttpParams } from '@angular/common/http';
+import {HttpContext, HttpHeaders, HttpParams} from '@angular/common/http';
 
 export interface ApiResponse<T> {
   message?: string | null;
@@ -19,8 +19,7 @@ export interface HttpReturningResponse<T> {
     [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
   };
   reportProgress?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  responseType?: any; // TODO
+  responseType?: any;
   withCredentials?: boolean;
   transferCache?:
     | {

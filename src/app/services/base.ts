@@ -9,8 +9,8 @@ import {map, Observable} from 'rxjs';
 })
 export abstract class Base {
   protected abstract endpoint: string;
-  readonly #http: HttpClient = inject(HttpClient);
   API_BASE_URL = environment.API_BASE_URL;
+  readonly #http: HttpClient = inject(HttpClient);
 
   get<OutputApi>(
     url?: string,

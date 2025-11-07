@@ -1,19 +1,29 @@
-import {Component, DestroyRef, effect, inject, OnInit, signal} from '@angular/core';
+import {Component, DestroyRef, inject, signal} from '@angular/core';
 import {Button} from 'primeng/button';
 import {Movie} from '../../services/movie';
-import {EMPTY, mergeMap, take} from 'rxjs';
+import {EMPTY, mergeMap, Observable, take} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {MovieBase} from '../../interfaces/movie';
 import {ProgressSpinner} from 'primeng/progressspinner';
 import {Loader} from '../../directives/loader';
+import {HttpResponse} from '@angular/common/http';
+import {ApiResponse} from '../../interfaces/api';
+import {ViewingVideo} from '../viewing-video/viewing-video';
+import {GenrePipe} from '../../pipes/genre-pipe';
+import {CountryPipe} from '../../pipes/country-pipe';
+import {DurationPipe} from '../../pipes/duration-pipe';
 
 @Component({
   selector: 'app-viewing-movie',
   imports: [
     Button,
     ProgressSpinner,
-    Loader
+    Loader,
+    ViewingVideo,
+    GenrePipe,
+    CountryPipe,
+    DurationPipe
   ],
   templateUrl: './viewing-movie.html',
   styleUrl: './viewing-movie.css',
@@ -39,7 +49,7 @@ export class ViewingMovie {
           return EMPTY;
         })
       )
-      .subscribe(res => {
+      .subscribe((res: HttpResponse<ApiResponse<MovieBase>>) => {
         if (res.ok && res.body?.data) {
           this.movieData.set(res.body!.data);
         }
@@ -47,7 +57,7 @@ export class ViewingMovie {
       });
   }
 
-  private getMovieData(id: string) {
+  private getMovieData(id: string): Observable<HttpResponse<ApiResponse<MovieBase>>> {
     return this.movieService.getMovieData(id).pipe(take(1));
   }
 

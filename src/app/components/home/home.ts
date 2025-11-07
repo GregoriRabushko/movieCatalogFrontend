@@ -1,6 +1,5 @@
-import {Component, DestroyRef, ElementRef, inject, OnInit, signal, viewChild} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import {Button} from 'primeng/button';
 import {MovieBase} from '../../interfaces/movie';
 import {catchError, debounce, EMPTY, interval, take} from 'rxjs';
 import {Movie} from '../../services/movie';
@@ -12,8 +11,6 @@ import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {
   AutoComplete,
-  AutoCompleteCompleteEvent,
-  AutoCompleteLazyLoadEvent,
   AutoCompleteSelectEvent
 } from 'primeng/autocomplete';
 
@@ -21,7 +18,6 @@ import {
   selector: 'app-home',
   imports: [
     RouterOutlet,
-    Button,
     RouterLink,
     Tooltip,
     ProgressSpinner,

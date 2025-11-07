@@ -1,13 +1,14 @@
-import {Component, input, OnInit} from '@angular/core';
+import {Component, input} from '@angular/core';
+import {Loader} from '../../directives/loader';
 
 @Component({
   selector: 'app-viewing-video',
-  imports: [],
+  imports: [
+    Loader
+  ],
   templateUrl: './viewing-video.html',
-  styleUrl: './viewing-video.css',
   standalone: true,
 })
 export class ViewingVideo  {
   videoURL = input.required<string>();
-
 }

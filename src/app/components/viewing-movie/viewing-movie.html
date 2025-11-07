@@ -1,10 +1,6 @@
 @if (isLoading()) {
-  <div
-    class="flex justify-content-center align-items-center w-full h-full"
-  >
-    <p-progress-spinner
-      ariaLabel="loading"
-    />
+  <div class="container-progress-spinner">
+    <p-progress-spinner ariaLabel="loading" />
   </div>
 } @else {
   <div class="container">
@@ -15,7 +11,7 @@
       <div class="content-details">
         <h3 class="m-0 p-0">{{ movieData()!.name }} ({{ movieData()!.year }})</h3>
         <div class="info">
-          <div class="flex align-items-center justify-content-center">
+          <div class="container-img">
             <img
               appLoader
               [mediaSource]="movieData()!.imageURL"
@@ -31,15 +27,15 @@
               </div>
               <div class="flex gap-2">
                 <span class="font-bold">Страна: </span>
-                <span>{{ movieData()?.country ? movieData()!.country : 'неизвестно' }}</span>
+                <span>{{ movieData()!.country | country }}</span>
               </div>
               <div class="flex gap-2">
                 <span class="font-bold">Жанр: </span>
-                <span>{{ movieData()!.genre }}</span>
+                <span>{{ movieData()!.genre | genre }}</span>
               </div>
               <div class="flex gap-2">
                 <span class="font-bold">Продолжительность: </span>
-                <span>{{ movieData()?.duration ? movieData()!.duration : 'неизвестно' }}</span>
+                <span>{{ movieData()!.duration | duration }}</span>
               </div>
               <div class="flex gap-2">
                 <span class="font-bold">Качество: </span>
@@ -50,18 +46,7 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-content-center">
-        <video
-          appLoader
-          [mediaSource]="movieData()!.movieURL"
-          skeletonSize="200px"
-          controls
-          [controlsList]="'nodownload'"
-          width="auto"
-          poster="assets/img/poster.jpg"
-          class="mb-2 border-round-md"
-        ></video>
-      </div>
+      <app-viewing-video [videoURL]="movieData()!.movieURL"/>
     </div>
   </div>
 }

@@ -3,7 +3,6 @@
     <h3 class="cursor-pointer" (click)="goHome()">Каталог фильмов</h3>
     <form [formGroup]="myForm" class="flex align-items-center gap-1">
       <p-auto-complete
-        #autoComplete
         [inputStyle]="{ height: '30px' }"
         [suggestions]="searchResult()"
         [optionLabel]="'name'"
